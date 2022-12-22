@@ -89,12 +89,11 @@ module Origami
             #
             # Default encryption options.
             #
-            params =
-            {
+            params = {
                 :user_passwd => '',
                 :owner_passwd => '',
                 :cipher => 'aes',            # :RC4 or :AES
-                :key_size => 128,            # Key size in bits
+                :key_size => 256,            # Key size in bits
                 :hardened => false,          # Use newer password validation (since Reader X)
                 :encrypt_metadata => true,   # Metadata shall be encrypted?
                 :permissions => Encryption::Standard::Permissions::ALL    # Document permissions

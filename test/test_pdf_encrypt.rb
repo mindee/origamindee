@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'stringio'
+require 'openssl'
 
 class TestEncryption < Minitest::Test
     def setup
@@ -9,21 +10,25 @@ class TestEncryption < Minitest::Test
     end
 
     def test_encrypt_rc4_40b
+        return if OpenSSL::VERSION[0].to_i > 2
         @output.string = ""
         @target.encrypt(cipher: 'rc4', key_size: 40).save(@output)
     end
 
     def test_encrypt_rc4_128b
+        return if OpenSSL::VERSION[0].to_i > 2
         @output.string = ""
-        @target.encrypt(cipher: 'rc4').save(@output)
+        @target.encrypt(cipher: 'rc4', key_size: 128).save(@output)
     end
 
     def test_encrypt_aes_128b
+        return if OpenSSL::VERSION[0].to_i > 2
         @output.string = ""
-        @target.encrypt(cipher: 'aes').save(@output)
+        @target.encrypt(cipher: 'aes', key_size: 128).save(@output)
     end
 
     def test_decrypt_rc4_40b
+        return if OpenSSL::VERSION[0].to_i > 2
         @output.string = ""
 
         pdf = PDF.new.encrypt(cipher: 'rc4', key_size: 40)
@@ -39,8 +44,9 @@ class TestEncryption < Minitest::Test
     end
 
     def test_decrypt_rc4_128b
+        return if OpenSSL::VERSION[0].to_i > 2
         @output.string = ""
-        pdf = PDF.new.encrypt(cipher: 'rc4')
+        pdf = PDF.new.encrypt(cipher: 'rc4', key_size: 128)
         pdf.Catalog[:Test] = "test"
         pdf.save(@output)
 
@@ -53,8 +59,9 @@ class TestEncryption < Minitest::Test
     end
 
     def test_decrypt_aes_128b
+        return if OpenSSL::VERSION[0].to_i > 2
         @output.string = ""
-        pdf = PDF.new.encrypt(cipher: 'aes')
+        pdf = PDF.new.encrypt(cipher: 'aes', key_size: 128)
         pdf.Catalog[:Test] = "test"
         pdf.save(@output)
 
@@ -82,7 +89,7 @@ class TestEncryption < Minitest::Test
 
     def test_crypt_filter
         @output.string = ""
-        pdf = PDF.new.encrypt(cipher: 'aes', key_size: 128)
+        pdf = PDF.new.encrypt(cipher: 'aes', key_size: 256)
 
         pdf.Catalog[:S1] = Stream.new("test", :Filter => :Crypt)
         pdf.Catalog[:S2] = Stream.new("test")

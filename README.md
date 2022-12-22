@@ -1,5 +1,5 @@
 Origami
-=====
+=======
 [![Gem Version](https://badge.fury.io/rb/origami.svg)](https://rubygems.org/gems/origami)
 [![Downloads](https://img.shields.io/gem/dt/origami.svg)](https://rubygems.org/gems/origami)
 [![Build Status](https://secure.travis-ci.org/gdelugre/origami.svg?branch=master)](https://travis-ci.org/gdelugre/origami)
@@ -27,7 +27,7 @@ Origami is able to parse PDF, FDF and PPKLite (Adobe certificate store) files.
 Requirements
 ------------
 
-As of version 2, the minimal version required to run Origami is Ruby 2.1.
+The following Ruby versions are tested and supported: 2.6, 2.7, 3.0, 3.1
 
 Some optional features require additional gems:
 
