@@ -58,7 +58,7 @@ USAGE
                 options[:cipher] = c
             end
 
-            opts.on("-s", "--key-size KEYSIZE", "Key size in bits (Default: 128)") do |s|
+            opts.on("-s", "--key-size KEYSIZE", "Key size in bits (Default: 256)") do |s|
                 options[:key_size] = s.to_i
             end
 
@@ -79,7 +79,7 @@ USAGE
             output: STDOUT,
             password: '',
             cipher: 'aes',
-            key_size: 128,
+            key_size: 256,
             hardened: false
         }
 
