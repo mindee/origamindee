@@ -31,7 +31,7 @@ rescue LoadError
 end
 include Origami
 
-require 'colorize'
+require 'rainbow'
 require 'optparse'
 require 'json'
 
@@ -61,7 +61,7 @@ USAGE
             end
 
             opts.on("-n", "--no-color", "Turn off colorized output.") do
-                options[:disable_colors] = true
+                options[:colors_enabled] = false
             end
 
             opts.on_tail("-h", "--help", "Show this message") do
@@ -72,10 +72,9 @@ USAGE
     end
 
     def self.parse(args)
-        options =
-        {
+        options = {
             output_format: :text,
-            disable_colors: false
+            colors_enabled: true
         }
 
         self.parser(options).parse!(args)
@@ -85,10 +84,10 @@ USAGE
 end
 
 def print_section(name, elements)
-    puts "[*] #{name}:".magenta
+    puts Rainbow("[*] #{name}:").magenta
 
     elements.each_pair do |name, item|
-        print name.ljust(20, ' ').green
+        print Rainbow(name.ljust(20, ' ')).green
         puts ": #{item}"
     end
 end
@@ -100,7 +99,7 @@ begin
         @options[:doc_info] = @options[:doc_stream] = true
     end
 
-    String.disable_colorization @options[:disable_colors]
+    Rainbow.enabled = @options[:colors_enabled]
 
     target = (ARGV.empty?) ? STDIN : ARGV.shift
     params =

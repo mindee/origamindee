@@ -26,7 +26,7 @@
 
 require 'optparse'
 require 'fileutils'
-require 'colorize'
+require 'rainbow'
 
 begin
     require 'origami'
@@ -328,6 +328,6 @@ fd.puts <<RUBY
 #{DOCREF}.save(OUTPUT)
 RUBY
 
-puts "[*] ".red + "Successfully generated script '#{TARGET_FILE}'"
+puts Rainbow("[*] ").red + "Successfully generated script '#{TARGET_FILE}'"
 
 fd.close
