@@ -51,9 +51,15 @@ class TestPages < Minitest::Test
         assert_raises(IndexError) { @target.insert_page(1000, Page.new) }
     end
 
-    def test_example_write_page
+    def test_example_write_delete_page
         @target.append_page
-        @target.pages.first.write 'Hello, world!', size: 30
+        @target.pages.last.write 'Hello, page 1 world!', size: 30
+        @target.append_page
+        @target.pages.last.write 'Hello, page 2 world!', size: 30
+        @target.save(@output)
+        assert_equal @target.Catalog.Pages.Count, 2
+
+        @target.delete_page_at(1)
         @target.save(@output)
         assert_equal @target.Catalog.Pages.Count, 1
     end
