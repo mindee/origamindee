@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 =begin
 
     This file is part of Origami, PDF manipulation framework for Ruby
@@ -19,5 +21,5 @@
 =end
 
 module Origami
-    VERSION   = "3.0.0"
+    VERSION   = '3.1.0'
 end 
