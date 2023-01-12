@@ -7,6 +7,8 @@ class TestPDFParser < Minitest::Test
               dataset/empty.pdf
               dataset/calc.pdf
               dataset/crypto.pdf
+              dataset/image_only.pdf
+              dataset/invoice.pdf
               }
     end
 
