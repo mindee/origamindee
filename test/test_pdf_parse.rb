@@ -1,18 +1,11 @@
 require 'minitest/autorun'
 
 class TestPDFParser < Minitest::Test
-    def setup
-        @files =
-            %w{
-              dataset/empty.pdf
-              dataset/calc.pdf
-              dataset/crypto.pdf
-              }
-    end
 
     def test_parse_pdf
-        @files.each do |file|
-            pdf = PDF.read(File.join(__dir__, file), ignore_errors: false, verbosity: Parser::VERBOSE_QUIET)
+        dir = File.join(__dir__, 'dataset')
+        Dir.children(dir).each do | filename |
+            pdf = PDF.read(File.join(dir, filename), ignore_errors: false, verbosity: Parser::VERBOSE_QUIET)
 
             assert_instance_of PDF, pdf
 

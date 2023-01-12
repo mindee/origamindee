@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 =begin
 
     This file is part of Origami, PDF manipulation framework for Ruby
@@ -58,6 +60,28 @@ module Origami
         end
 
         #
+        # Deletes a page at position _index_ from the document.
+        # _index_:: Page index (starting from one).
+        #
+        def delete_page_at(index)
+            init_page_tree
+
+            self.Catalog.Pages.delete_page_at(index)
+            self
+        end
+
+        #
+        # Deletes a page at position _index_ from the document.
+        # _index_:: Page index (starting from one).
+        #
+        def delete_pages_at(delete_idx)
+            init_page_tree
+
+            self.Catalog.Pages.delete_pages_at(delete_idx)
+            self
+        end
+
+        #
         # Returns an Enumerator of Page
         #
         def pages
@@ -107,7 +131,7 @@ module Origami
             end
 
             unless self.Catalog.Pages.is_a?(PageTreeNode)
-                raise InvalidPageTreeError, "Root page node is not a PageTreeNode"
+                raise InvalidPageTreeError, 'Root page node is not a PageTreeNode'
             end
         end
     end
@@ -250,11 +274,11 @@ module Origami
         field   EXTGSTATE,    :Type => Dictionary
         field   COLORSPACE,   :Type => Dictionary
         field   PATTERN,      :Type => Dictionary
-        field   SHADING,      :Type => Dictionary, :Version => "1.3"
+        field   SHADING,      :Type => Dictionary, :Version => '1.3'
         field   XOBJECT,      :Type => Dictionary
         field   FONT,         :Type => Dictionary
         field   :ProcSet,     :Type => Array.of(Name)
-        field   PROPERTIES,   :Type => Dictionary, :Version => "1.2"
+        field   PROPERTIES,   :Type => Dictionary, :Version => '1.2'
 
         def pre_build
             add_font(Font::Type1::Standard::Helvetica.new.pre_build) unless self.Font
@@ -294,11 +318,11 @@ module Origami
         # Inserts a page into the node at a specified position (starting from 1).
         #
         def insert_page(n, page)
-            raise IndexError, "Page numbers are referenced starting from 1" if n < 1
+            raise IndexError, 'Page numbers are referenced starting from 1' if n < 1
 
             kids = self.Kids
             unless kids.is_a?(Array)
-                raise InvalidPageTreeError, "Kids must be an Array"
+                raise InvalidPageTreeError, 'Kids must be an Array'
             end
 
             count = 0
@@ -323,13 +347,85 @@ module Origami
                         return self
                     end
                 else
-                    raise InvalidPageTreeError, "not a Page or PageTreeNode"
+                    raise InvalidPageTreeError, 'not a Page or PageTreeNode'
                 end
             end
 
-            raise IndexError, "Out of order page index" unless count + 1 == n
+            raise IndexError, 'Out of order page index' unless count + 1 == n
 
             self.append_page(page)
+        end
+
+        #
+        # Delete a page in the node at the specified position (starting from 1).
+        #
+        def delete_page_at(n)
+            raise IndexError, 'Page numbers are referenced starting from 1' if n < 1
+
+            kids = self.Kids
+            unless kids.is_a?(Array)
+                raise InvalidPageTreeError, 'Kids must be an Array'
+            end
+
+            count = 0
+            kids.each_with_index do |kid, index|
+                node = kid.solve
+
+                case node
+                when Page
+                    count = count + 1
+                    if count == n
+                        kids.delete_at(index)
+                        self.Count -= 1
+                        return self
+                    end
+
+                when PageTreeNode
+                    count = count + node.Count
+                    if count >= n
+                        node.delete_page_at(n - count + node.Count)
+                        self.Count -= 1
+                        return self
+                    end
+                else
+                    raise InvalidPageTreeError, 'not a Page or PageTreeNode'
+                end
+            end
+
+            raise IndexError, 'Out of order page index' unless count + 1 == n
+        end
+
+        #
+        # Delete a set of page in the node at the specified positions (starting from 0).
+        #
+        def delete_pages_at(delete_idx, offset = 0)
+            kids = self.Kids
+            unless kids.is_a?(Array)
+                raise InvalidPageTreeError, 'Kids must be an Array'
+            end
+
+            deleted = 0
+            kids.delete_if.with_index do |kid, idx|
+                node = kid.solve
+                idx = idx + offset
+
+                case node
+                when Page
+                    if delete_idx.include?(idx)
+                        deleted += 1
+                        true
+                    else
+                        false
+                    end
+                when PageTreeNode
+                    deleted += node.delete_pages_at(delete_idx, idx)
+                    false
+                else
+                    raise InvalidPageTreeError, 'not a Page or PageTreeNode'
+                end
+            end
+            self.Count -= deleted
+            deleted
         end
 
         #
@@ -346,11 +442,11 @@ module Origami
             return enum_for(__method__) { self.Count.to_i } unless block_given?
 
             if browsed_nodes.any?{|node| node.equal?(self)}
-                raise InvalidPageTreeError, "Cyclic tree graph detected"
+                raise InvalidPageTreeError, 'Cyclic tree graph detected'
             end
 
             unless self.Kids.is_a?(Array)
-                raise InvalidPageTreeError, "Kids must be an Array"
+                raise InvalidPageTreeError, 'Kids must be an Array'
             end
 
             browsed_nodes.push(self)
@@ -363,7 +459,7 @@ module Origami
                     when PageTreeNode then node.each_page(browsed_nodes: browsed_nodes, &block)
                     when Page then yield(node)
                     else
-                        raise InvalidPageTreeError, "not a Page or PageTreeNode"
+                        raise InvalidPageTreeError, 'not a Page or PageTreeNode'
                     end
                 end
             end
@@ -375,10 +471,10 @@ module Origami
         # Get the n-th Page object in this node, starting from 1.
         #
         def get_page(n)
-            raise IndexError, "Page numbers are referenced starting from 1" if n < 1
-            raise IndexError, "Page not found" if n > self.Count.to_i
+            raise IndexError, 'Page numbers are referenced starting from 1' if n < 1
+            raise IndexError, 'Page not found' if n > self.Count.to_i
 
-            self.each_page.lazy.drop(n - 1).first or raise IndexError, "Page not found"
+            self.each_page.lazy.drop(n - 1).first or raise IndexError, 'Page not found'
         end
 
         #
@@ -481,8 +577,8 @@ module Origami
         class AdditionalActions < Dictionary
             include StandardObject
 
-            field   :O,   :Type => Dictionary, :Version => "1.2" # Page Open
-            field   :C,   :Type => Dictionary, :Version => "1.2" # Page Close
+            field   :O,   :Type => Dictionary, :Version => '1.2' # Page Open
+            field   :C,   :Type => Dictionary, :Version => '1.2' # Page Close
         end
 
         module Format
@@ -513,34 +609,34 @@ module Origami
 
         field   :Type,                  :Type => Name, :Default => :Page, :Required => true
         field   :Parent,                :Type => PageTreeNode, :Required => true
-        field   :LastModified,          :Type => String, :Version => "1.3"
+        field   :LastModified,          :Type => String, :Version => '1.3'
         field   :Resources,             :Type => Resources, :Required => true
         field   :MediaBox,              :Type => Rectangle, :Default => Format::A4, :Required => true
         field   :CropBox,               :Type => Rectangle
-        field   :BleedBox,              :Type => Rectangle, :Version => "1.3"
-        field   :TrimBox,               :Type => Rectangle, :Version => "1.3"
-        field   :ArtBox,                :Type => Rectangle, :Version => "1.3"
-        field   :BoxColorInfo,          :Type => BoxColorInformation, :Version => "1.4"
+        field   :BleedBox,              :Type => Rectangle, :Version => '1.3'
+        field   :TrimBox,               :Type => Rectangle, :Version => '1.3'
+        field   :ArtBox,                :Type => Rectangle, :Version => '1.3'
+        field   :BoxColorInfo,          :Type => BoxColorInformation, :Version => '1.4'
         field   :Contents,              :Type => [ ContentStream, Array.of(ContentStream) ]
         field   :Rotate,                :Type => Integer, :Default => 0
-        field   :Group,                 :Type => Dictionary, :Version => "1.4"
+        field   :Group,                 :Type => Dictionary, :Version => '1.4'
         field   :Thumb,                 :Type => Graphics::ImageXObject
-        field   :B,                     :Type => Array, :Version => "1.1"
-        field   :Dur,                   :Type => Integer, :Version => "1.1"
-        field   :Trans,                 :Type => Dictionary, :Version => "1.1"
+        field   :B,                     :Type => Array, :Version => '1.1'
+        field   :Dur,                   :Type => Integer, :Version => '1.1'
+        field   :Trans,                 :Type => Dictionary, :Version => '1.1'
         field   :Annots,                :Type => Array.of(Annotation)
-        field   :AA,                    :Type => AdditionalActions, :Version => "1.2"
-        field   :Metadata,              :Type => MetadataStream, :Version => "1.4"
-        field   :PieceInfo,             :Type => Dictionary, :Version => "1.2"
-        field   :StructParents,         :Type => Integer, :Version => "1.3"
+        field   :AA,                    :Type => AdditionalActions, :Version => '1.2'
+        field   :Metadata,              :Type => MetadataStream, :Version => '1.4'
+        field   :PieceInfo,             :Type => Dictionary, :Version => '1.2'
+        field   :StructParents,         :Type => Integer, :Version => '1.3'
         field   :ID,                    :Type => String
         field   :PZ,                    :Type => Number
-        field   :SeparationInfo,        :Type => Dictionary, :Version => "1.3"
-        field   :Tabs,                  :Type => Name, :Version => "1.5"
-        field   :TemplateAssociated,    :Type => Name, :Version => "1.5"
-        field   :PresSteps,             :Type => NavigationNode, :Version => "1.5"
-        field   :UserUnit,              :Type => Number, :Default => 1.0, :Version => "1.6"
-        field   :VP,                    :Type => Dictionary, :Version => "1.6"
+        field   :SeparationInfo,        :Type => Dictionary, :Version => '1.3'
+        field   :Tabs,                  :Type => Name, :Version => '1.5'
+        field   :TemplateAssociated,    :Type => Name, :Version => '1.5'
+        field   :PresSteps,             :Type => NavigationNode, :Version => '1.5'
+        field   :UserUnit,              :Type => Number, :Default => 1.0, :Version => '1.6'
+        field   :VP,                    :Type => Dictionary, :Version => '1.6'
 
         def initialize(hash = {}, parser = nil)
             super(hash, parser)
