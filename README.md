@@ -27,7 +27,7 @@ Origami is able to parse PDF, FDF and PPKLite (Adobe certificate store) files.
 
 Requirements
 ------------
-The following Ruby versions are tested and supported: 2.6, 2.7, 3.0, 3.1
+The following Ruby versions are tested and supported: 2.6, 2.7, 3.0, 3.1, 3.2
 
 Some optional features require additional gems:
 

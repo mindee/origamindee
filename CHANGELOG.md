@@ -1,3 +1,8 @@
+3.1.0
+-----
+* Add page deletion methods
+* Add running tests on Ruby 3.2
+
 3.0.0
 -----
 * Replaced Colorize with Rainbow for LGPL compatibility
