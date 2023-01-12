@@ -63,4 +63,21 @@ class TestPages < Minitest::Test
         @target.save(@output)
         assert_equal @target.Catalog.Pages.Count, 1
     end
+
+    def test_delete_pages_generated
+        to_append = [Page.new, Page.new, Page.new, PageTreeNode.new, Page.new, Page.new, Page.new]
+        to_append.each { |page| @target.append_page(page) }
+        to_del = [0,1]
+        assert_equal @target.Catalog.Pages.Count, to_append.length
+        @target.delete_pages_at(to_del)
+        assert_equal @target.Catalog.Pages.Count, to_append.length - to_del.length
+    end
+
+    def test_delete_pages_parsed
+        file = File.join(__dir__, 'dataset', '3_pages.pdf')
+        pdf = PDF.read(file, ignore_errors: false, verbosity: Parser::VERBOSE_QUIET)
+        assert_equal pdf.Catalog.Pages.Count, 3
+        pdf.delete_pages_at([0,2])
+        assert_equal pdf.Catalog.Pages.Count, 1
+    end
 end

@@ -69,6 +69,17 @@ module Origami
         end
 
         #
+        # Deletes a page at position _index_ from the document.
+        # _index_:: Page index (starting from one).
+        #
+        def delete_pages_at(delete_idx)
+            init_page_tree
+
+            self.Catalog.Pages.delete_pages_at(delete_idx)
+            self
+        end
+
+        #
         # Returns an Enumerator of Page
         #
         def pages
@@ -380,6 +391,39 @@ module Origami
             end
 
             raise IndexError, "Out of order page index" unless count + 1 == n
+        end
+
+        #
+        # Delete a set of page in the node at the specified positions (starting from 0).
+        #
+        def delete_pages_at(delete_idx, offset = 0)
+            kids = self.Kids
+            unless kids.is_a?(Array)
+                raise InvalidPageTreeError, "Kids must be an Array"
+            end
+
+            deleted = 0
+            kids.delete_if.with_index do |kid, idx|
+                node = kid.solve
+                idx = idx + offset
+
+                case node
+                when Page
+                    if delete_idx.include?(idx)
+                        deleted += 1
+                        true
+                    else
+                        false
+                    end
+                when PageTreeNode
+                    deleted += node.delete_pages_at(delete_idx, idx)
+                    false
+                else
+                    raise InvalidPageTreeError, "not a Page or PageTreeNode"
+                end
+            end
+            self.Count -= deleted
+            deleted
         end
 
         #
