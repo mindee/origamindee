@@ -417,7 +417,7 @@ module Origami
                 date[:utc_offset] = utc_offset
             end
 
-            Origami::Date.new(date)
+            Origami::Date.new(**date)
         end
 
         #
