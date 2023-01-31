@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# frozen_string_literal: true
 
 # Optionally install bundler tasks if present.
 begin
@@ -9,25 +9,20 @@ begin
 rescue LoadError
 end
 
-require 'rdoc/task'
+require 'yard'
 require 'rake/testtask'
 require 'rake/clean'
 
-desc "Generate rdoc documentation"
-Rake::RDocTask.new("rdoc") do |rdoc|
-    rdoc.rdoc_dir = "doc"
-    rdoc.title = "Origami"
-    rdoc.options << "-U" << "-N"
-    rdoc.options << "-m" << "Origami::PDF"
-
-    rdoc.rdoc_files.include("lib/origami/**/*.rb")
+desc 'Generate documentation'
+YARD::Rake::YardocTask.new(:doc) do |task|
+    task.files = ['lib/**/*.rb']
 end
 
-desc "Run the test suite"
+desc 'Run the test suite'
 Rake::TestTask.new do |t|
     t.verbose = true
-    t.libs << "test"
-    t.test_files = [ "test/test_pdf.rb" ]
+    t.libs << 'test'
+    t.test_files = [ 'test/test_pdf.rb' ]
 end
 
 task :clean do

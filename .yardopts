@@ -1,0 +1,3 @@
+--markup markdown
+--main README.md
+--output-dir docs/_build
