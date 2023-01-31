@@ -1,3 +1,27 @@
+3.1.0
+-----
+* Add page deletion methods
+* Add running tests on Ruby 3.2
+
+3.0.0
+-----
+* Replaced Colorize with Rainbow for LGPL compatibility
+* Default PDF encryption is now AES-256
+* Fixes for Ruby 3.0 and 3.1
+* Updated dependencies
+* Includes all work done by **Guillaume Delugré** done after 2.1.0:
+  * **Many, many fixes!**
+  * bin/pdfmetadata: switch to output to JSON
+  * header: added Header#version
+  * signature: support for adbe.x509.rsa_sha1
+  * signature: new options introduced for PDF#verify
+  * pdf: method PDF#loaded?
+  * Image with height support
+  * object: remove operator <=>
+  * page: use lazy page enumerator for get_page
+  * test: added test cases to test_pdf_parse
+  * parser: parse methods now accept a String argument
+
 2.1.0
 -----
 * Moved pdfwalker to a separate gem

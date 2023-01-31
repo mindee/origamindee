@@ -38,7 +38,7 @@ require 'yaml'
 require 'rexml/document'
 require 'digest/sha2'
 require 'fileutils'
-require 'colorize'
+require 'rainbow'
 
 DEFAULT_CONFIG_FILE = "#{File.dirname(__FILE__)}/config/pdfcop.conf.yml"
 DEFAULT_POLICY = "standard"
@@ -68,7 +68,7 @@ Options:
 USAGE
 
     def self.parse(args)
-        options = {colors: true, password: ''}
+        options = {colors_enabled: true, password: ''}
 
         parser = OptionParser.new do |opts|
             opts.banner = BANNER
@@ -94,7 +94,7 @@ USAGE
             end
 
             opts.on("-n", "--no-color", "Turn off colorized output") do
-                options[:disable_colors] = true
+                options[:colors_enabled] = false
             end
 
             opts.on_tail("-h", "--help", "Show this message") do
@@ -124,7 +124,7 @@ if @options.key?(:move_dir) and not File.directory?(@options[:move_dir])
     abort "Error: #{@options[:move_dir]} is not a valid directory."
 end
 
-String.disable_colorization @options[:disable_colors]
+Rainbow.enabled = @options[:colors_enabled]
 
 load_config_file(@options[:config_file] || DEFAULT_CONFIG_FILE)
 unless SECURITY_POLICIES.key?("POLICY_#{@options[:policy].upcase}")
@@ -137,8 +137,10 @@ else
     TARGET = ARGV.shift
 end
 
-def log(str, color = :default)
-    LOGGER.puts("[#{Time.now}]".cyan + " #{str.colorize(color)}")
+def log(message, color = :default)
+    time_txt = Rainbow("[#{Time.now}]").cyan
+    msg_txt = Rainbow(message).color(color)
+    LOGGER.puts("#{time_txt} #{msg_txt}")
 end
 
 def reject(cause)
@@ -467,7 +469,7 @@ begin
     log("Document accepted by policy `#{@options[:policy]}'.", :green)
 
 rescue
-    log("An error occured during analysis : #{$!.class} (#{$!.message})")
+    log("An error occurred during analysis: #{$!.class} (#{$!.message})")
     reject("Analysis failure")
 ensure
     LOGGER.close
