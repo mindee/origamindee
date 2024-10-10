@@ -233,8 +233,8 @@ module Origami
         #
         # Returns the uncompressed stream content.
         #
-        def data
-            self.decode! unless decoded?
+        def data(bypass_dct: false)
+            self.decode!(bypass_dct: bypass_dct) unless decoded?
 
             @data
         end
@@ -269,9 +269,9 @@ module Origami
         end
 
         #
-        # Uncompress the stream data.
+        # Decompress the stream data.
         #
-        def decode!
+        def decode!(bypass_dct: false)
             self.decrypt! if self.is_a?(Encryption::EncryptedStream)
             return if decoded?
 
@@ -289,6 +289,11 @@ module Origami
                     raise Filter::Error, "Crypt filter must be the first filter" unless layer.zero?
 
                     # Skip the Crypt filter.
+                    next
+                end
+
+                # Manually Bypass DCTDecode. Only used when already compressed jpegs are loaded in an xobject.
+                if filter == :DCTDecode && bypass_dct
                     next
                 end
 
