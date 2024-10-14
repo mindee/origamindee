@@ -694,12 +694,12 @@ module Origami
             #
             #   Returns an array of the form [ _format_, _data_ ]
             #
-            def to_image_file
+            def to_image_file(bypass_dct: false)
                 encoding = self.Filter
                 encoding = encoding[0] if encoding.is_a? ::Array
 
                 case (encoding && encoding.value)
-                when :DCTDecode then return [ 'jpg', self.data ]
+                when :DCTDecode then return [ 'jpg', self.data(bypass_dct: bypass_dct) ]
                 when :JBIG2Decode then return [ 'jbig2', self.data ]
                 when :JPXDecode then return [ 'jp2', self.data ]
                 end
