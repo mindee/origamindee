@@ -28,7 +28,7 @@ module Origami
         attr_reader :operator
         attr_accessor :operands
 
-        @insns = Hash.new(operands: [], render: lambda{})
+        @insns = Hash.new({ operands: [], render: lambda{} })
 
         def initialize(operator, *operands)
             @operator = operator
