@@ -10,8 +10,8 @@ class TestSign < Minitest::Test
         cert = OpenSSL::X509::Certificate.new
         cert.version = 2
         cert.serial = 0
-        cert.not_before = Time.now
-        cert.not_after = Time.now + expires
+        cert.not_before = Time.now - 100
+        cert.not_after = Time.now + expires + 100
         cert.public_key = key
         cert.subject = name
 
