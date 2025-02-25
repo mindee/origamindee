@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 
-class TestActions < MiniTest::Test
+class TestActions < Minitest::Test
     def setup
         @target = PDF.new
         @page = Page.new
