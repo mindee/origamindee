@@ -4,9 +4,8 @@
 name: Tests
 
 on:
-  - push
-  - workflow_dispatch
-  - workflow_run
+  push:
+  workflow_dispatch:
 
 jobs:
   tests:
