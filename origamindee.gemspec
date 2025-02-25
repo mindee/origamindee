@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
     spec.name          = 'origamindee'
     spec.version       = Origami::VERSION
     spec.authors       = ['Guillaume Delugré', 'Mindee, SA']
-    spec.email         = ['devrel@mindee.co']
+    spec.email         = ['opensource@mindee.co']
 
     spec.summary       = 'Ruby framework to manipulate PDF documents'
     spec.description   = "Mindee's fork of Origami, a pure Ruby library to parse, modify and generate PDF documents."

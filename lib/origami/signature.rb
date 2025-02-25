@@ -125,7 +125,8 @@ module Origami
                 InteractiveForm::SigFlags::SIGNATURES_EXIST | InteractiveForm::SigFlags::APPEND_ONLY
 
             digsig.Type = :Sig
-            digsig.Contents = HexaString.new("\x00" * Signature::required_size(method, certificate, key, ca))
+            placeholder_size = Signature::required_size(method, certificate, key, ca) + 128
+            digsig.Contents = HexaString.new("\x00" * placeholder_size)
             digsig.Filter = :"Adobe.PPKLite"
             digsig.SubFilter = Name.new(method)
             digsig.ByteRange = [0, 0, 0, 0]
