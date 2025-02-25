@@ -1,3 +1,9 @@
+4.0.0
+-----
+* Add running tests on Ruby 3.4
+* Drop support for Ruby < 3.0.0
+* Accept Elliptic Curve (EC) private key
+
 3.1.0
 -----
 * Add page deletion methods
