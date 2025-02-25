@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
                          pdfexplode pdfextract)
     spec.test_file     = 'test/test_pdf.rb'
 
-    spec.required_ruby_version = '>= 2.6'
+    spec.required_ruby_version = '>= 2.7'
 
     spec.add_runtime_dependency 'base64', '~> 0.1.0'
     spec.add_runtime_dependency 'rainbow', '~> 3.1.1'

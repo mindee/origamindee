@@ -89,19 +89,19 @@ module Origami
                  reason: nil)
 
             unless certificate.is_a?(OpenSSL::X509::Certificate)
-                raise TypeError, "A OpenSSL::X509::Certificate object must be passed."
+                raise TypeError, 'A OpenSSL::X509::Certificate object must be passed.'
             end
 
             unless (key.is_a?(OpenSSL::PKey::RSA) || key.is_a?(OpenSSL::PKey::EC))
-                raise TypeError, "An OpenSSL::PKey::RSA or OpenSSL::PKey::EC object must be passed."
+                raise TypeError, 'An OpenSSL::PKey::RSA or OpenSSL::PKey::EC object must be passed.'
             end
 
             unless ca.is_a?(::Array)
-                raise TypeError, "Expected an Array of CA certificates."
+                raise TypeError, 'Expected an Array of CA certificates.'
             end
 
             unless annotation.nil? or annotation.is_a?(Annotation::Widget::Signature)
-                raise TypeError, "Expected a Annotation::Widget::Signature object."
+                raise TypeError, 'Expected a Annotation::Widget::Signature object.'
             end
 
             #
@@ -328,7 +328,7 @@ module Origami
                 r1.end != start_sig or
                 r2.begin != end_sig
 
-                raise SignatureError, "Invalid signature byte range"
+                raise SignatureError, 'Invalid signature byte range'
             end
 
             self.original_data[r1] + self.original_data[r2]
@@ -590,7 +590,7 @@ module Origami
                 byte_range = self.ByteRange
 
                 unless byte_range.is_a?(Array) and byte_range.length == 4 and byte_range.all? {|i| i.is_a?(Integer) }
-                    raise SignatureError, "Invalid ByteRange field value"
+                    raise SignatureError, 'Invalid ByteRange field value'
                 end
 
                 byte_range.map(&:to_i).each_slice(2).map do |start, length|
@@ -609,7 +609,7 @@ module Origami
 
                 chain = self.Cert
                 unless chain.is_a?(String) or (chain.is_a?(Array) and chain.all?{|cert| cert.is_a?(String)})
-                    return SignatureError, "Invalid embedded certificate chain"
+                    return SignatureError, 'Invalid embedded certificate chain'
                 end
 
                 [ chain ].flatten.map! {|str| OpenSSL::X509::Certificate.new(str) }

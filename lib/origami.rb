@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 =begin
 
     This file is part of Origami, PDF manipulation framework for Ruby

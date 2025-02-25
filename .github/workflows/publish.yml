@@ -1,6 +1,7 @@
 name: Publish
 
 on:
+  workflow_dispatch:
   release:
     types: [ published ]
 
@@ -9,7 +10,7 @@ jobs:
     name: Publish to Rubygems
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
 
@@ -19,16 +20,16 @@ jobs:
         ruby-version: "3.0"
         bundler-cache: true
 
+    - name: Build the Gem
+      run: |
+        gem build --strict --output origamindee.gem
+
     - name: Set credentials
       env:
         RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
       run: |
         echo -e "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}" > ~/.gem/credentials
         chmod 600 ~/.gem/credentials
-
-    - name: Build the Gem
-      run: |
-        gem build --strict --output origamindee.gem
 
     - name: Publish the Gem
       run: |

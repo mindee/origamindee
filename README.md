@@ -29,6 +29,8 @@ Requirements
 ------------
 The following Ruby versions are tested and supported: 3.0, 3.1, 3.2, 3.3, 3.4
 
+(It could maybe, possibly, in some cases run on Ruby 2.7, but no guarantees. Update your stack.)
+
 Some optional features require additional gems:
 
   * [therubyracer][the-ruby-racer] for JavaScript emulation of PDF scripts
