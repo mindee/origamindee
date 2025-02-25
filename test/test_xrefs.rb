@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'stringio'
 require 'strscan'
 
-class TestXrefs < MiniTest::Test
+class TestXrefs < Minitest::Test
 
     def setup
         @target = PDF.new
