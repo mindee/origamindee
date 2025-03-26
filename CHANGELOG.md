@@ -1,3 +1,7 @@
+4.0.1
+-----
+* Update dependencies & loosen version constraints
+
 4.0.0
 -----
 * Add running tests on Ruby 3.4
