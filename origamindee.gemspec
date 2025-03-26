@@ -37,12 +37,12 @@ Gem::Specification.new do |spec|
 
     spec.required_ruby_version = '>= 2.7'
 
-    spec.add_runtime_dependency 'base64', '~> 0.2.0'
-    spec.add_runtime_dependency 'rainbow', '~> 3.1.1'
-    spec.add_runtime_dependency 'rexml', '~> 3.4.1'
-    spec.add_runtime_dependency 'matrix', '~> 0.4.2'
+    spec.add_runtime_dependency 'base64', '~> 0.1'
+    spec.add_runtime_dependency 'rainbow', '~> 3.1'
+    spec.add_runtime_dependency 'rexml', '~> 3.4'
+    spec.add_runtime_dependency 'matrix', '~> 0.4'
 
-    spec.add_development_dependency 'minitest', '~> 5.25.4'
-    spec.add_development_dependency 'rake', '~> 13.2.1'
-    spec.add_development_dependency 'yard', '~> 0.9.37'
+    spec.add_development_dependency 'minitest', '~> 5.25'
+    spec.add_development_dependency 'rake', '~> 13.2'
+    spec.add_development_dependency 'yard', '~> 0.9'
 end
