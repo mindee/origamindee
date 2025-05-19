@@ -196,8 +196,17 @@ module Origami
                             next
                         end
 
-                        unless object_value.is_a?(index_type)
-                            STDERR.puts "Warning: object #{self.class.name || 'Array'} should be composed of #{index_type.name} at index #{index} (got #{object_value.type} instead)"
+                        valid_type = case index_type
+                                     when Class
+                                         object_value.is_a?(index_type)
+                                     when Array
+                                         index_type.any? { |type| object_value.is_a?(type) }
+                                     else
+                                         true
+                                     end
+                        unless valid_type
+                           allowed = Array(index_type).map(&:name).join('|')
+                           STDERR.puts "Warning: object #{self.class.name} should be one of [#{allowed}] at index #{index} (got #{object_value.type} instead)"
                         end
                     end
                 end
