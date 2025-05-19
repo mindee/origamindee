@@ -176,7 +176,7 @@ module Origami
         # Outputs self into PDF code.
         #
         def to_s(indent: 1, eol: $/)
-            content = ""
+            content = ::String.new
             if self.dictionary?
                 content << TOKENS.first << eol << @dictionary.to_s(indent: indent, eol: eol) << eol
             end

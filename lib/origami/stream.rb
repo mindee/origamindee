@@ -84,7 +84,7 @@ module Origami
         # _data_:: The Stream uncompressed data.
         # _dictionary_:: A hash representing the Stream attributes.
         #
-        def initialize(data = "", dictionary = {})
+        def initialize(data = ::String.new, dictionary = {})
             super()
 
             set_indirect(true)
@@ -334,7 +334,7 @@ module Origami
         end
 
         def to_s(indent: 1, tab: "\t", eol: $/) #:nodoc:
-            content = ""
+            content = ::String.new
 
             content << @dictionary.to_s(indent: indent, tab: tab)
             content << "stream" + eol
@@ -485,7 +485,7 @@ module Origami
         # _dictionary_:: A hash of attributes to set to the Stream.
         # _raw_data_:: The Stream data.
         #
-        def initialize(raw_data = "", dictionary = {})
+        def initialize(raw_data = ::String.new, dictionary = {})
             super
 
             @objects = nil
@@ -494,8 +494,8 @@ module Origami
         def pre_build #:nodoc:
             load!
 
-            prolog = ""
-            data = ""
+            prolog = ::String.new
+            data = ::String.new
             objoff = 0
             @objects.to_a.sort.each do |num,obj|
 

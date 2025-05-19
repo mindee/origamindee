@@ -79,7 +79,7 @@ module Origami
             #
             def encode(stream)
                 i = 0
-                code = "".b
+                code = ::String.new.b
                 input = stream.dup
 
                 while i < input.size do
@@ -121,7 +121,7 @@ module Origami
 
                 while i < input.size
 
-                    outblock = ""
+                    outblock = ::String.new
                     value = 0
                     addend = 0
 
@@ -169,7 +169,7 @@ module Origami
             # Encodes an integer value into an ASCII85 block of 5 characters.
             #
             def encode_block(value)
-                block = "".b
+                block = ::String.new.b
 
                 5.times do |p|
                     c = value / 85 ** (4 - p)

@@ -114,7 +114,7 @@ module Origami
                 desc.elements << elt
             end
 
-            xml = ""; doc.write(xml, 4)
+            xml = ::String.new; doc.write(xml, 4)
 
             if self.Catalog.Metadata.is_a?(Stream)
                 self.Catalog.Metadata.data = xml

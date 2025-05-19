@@ -115,7 +115,7 @@ module Origami
                     xfa_attribute 'maxChars'
                     xfa_attribute 'rid'
 
-                    def initialize(text = "")
+                    def initialize(text = ::String.new)
                         super('text')
 
                         self.text = text
@@ -153,7 +153,7 @@ module Origami
                     xfa_attribute 'priority'
                     xfa_attribute 'rid'
 
-                    def initialize(text = "")
+                    def initialize(text = ::String.new)
                         super('speak')
 
                         self.text = text
@@ -163,7 +163,7 @@ module Origami
                 class ToolTip < XFA::TemplateElement
                     xfa_attribute 'rid'
 
-                    def initialize(text = "")
+                    def initialize(text = ::String.new)
                         super('toolTip')
 
                         self.text = text
@@ -382,7 +382,7 @@ module Origami
                     xfa_attribute 'contentType'
                     xfa_attribute 'runAt'
 
-                    def initialize(script = "")
+                    def initialize(script = ::String.new)
                         super('script')
 
                         self.text = script
@@ -390,7 +390,7 @@ module Origami
                 end
 
                 class JavaScript < Script
-                    def initialize(script = "")
+                    def initialize(script = ::String.new)
                         super(script)
 
                         self.contentType = 'application/x-javascript'
@@ -398,7 +398,7 @@ module Origami
                 end
 
                 class FormCalcScript < Script
-                    def initialize(script = "")
+                    def initialize(script = ::String.new)
                         super(script)
 
                         self.contentType = 'application/x-formcalc'
@@ -797,7 +797,7 @@ module Origami
                 class AppearanceFilter < XFA::TemplateElement
                     xfa_attribute 'type'
 
-                    def initialize(name = "")
+                    def initialize(name = ::String.new)
                         super('appearanceFilter')
 
                         self.text = name
@@ -832,7 +832,7 @@ module Origami
                 end
 
                 class OID < XFA::NamedTemplateElement
-                    def initialize(oid = "")
+                    def initialize(oid = ::String.new)
                         super('oid')
 
                         self.text = oid
@@ -862,7 +862,7 @@ module Origami
                 class SubjectDN < XFA::NamedTemplateElement
                     xfa_attribute 'delimiter'
 
-                    def initialize(data = "")
+                    def initialize(data = ::String.new)
                         super('subjectDN')
 
                         self.text = data
@@ -896,7 +896,7 @@ module Origami
                 end
 
                 class DigestMethod < XFA::TemplateElement
-                    def initialize(method = "")
+                    def initialize(method = ::String.new)
                         super('digestMethod')
 
                         self.text = method
@@ -914,7 +914,7 @@ module Origami
                 end
 
                 class Encoding < XFA::TemplateElement
-                    def initialize(encoding = "")
+                    def initialize(encoding = ::String.new)
                         super('encoding')
 
                         self.text = encoding
@@ -934,7 +934,7 @@ module Origami
                 class Handler < XFA::TemplateElement
                     xfa_attribute 'type'
 
-                    def initialize(handler = "")
+                    def initialize(handler = ::String.new)
                         super('handler')
 
                         self.text = handler
@@ -961,7 +961,7 @@ module Origami
                 end
 
                 class Reason < XFA::NamedTemplateElement
-                    def initialize(reason = "")
+                    def initialize(reason = ::String.new)
                         super('reason')
 
                         self.text = reason

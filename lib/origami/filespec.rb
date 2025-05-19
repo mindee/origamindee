@@ -102,7 +102,7 @@ module Origami
             # Converts Windows file path into PDF file path.
             #
             def DOS(file)
-                path = ""
+                path = ::String.new
                 # Absolute vs relative path
                 if file.include? ":"
                     path << "/"

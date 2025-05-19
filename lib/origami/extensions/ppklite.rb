@@ -264,7 +264,7 @@ module Origami
         end
 
         def save(path)
-            bin = "".b
+            bin = ::String.new.b
             bin << @header.to_s
 
             lastno, brange = 0, 0

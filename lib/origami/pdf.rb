@@ -824,7 +824,7 @@ module Origami
             xrefstm_offset = nil
 
             # Header
-            bin = ""
+            bin = ::String.new
             bin << @header.to_s(eol: options[:eol])
 
             # For each revision

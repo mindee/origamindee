@@ -188,23 +188,23 @@ module Origami
             @data.string.dup if @data
         end
 
-        def error(msg = "") #:nodoc:
+        def error(msg = ::String.new) #:nodoc:
             log(VERBOSE_QUIET, 'error', :red, msg)
         end
 
-        def warn(msg = "") #:nodoc:
+        def warn(msg = ::String.new) #:nodoc:
             log(VERBOSE_INFO, 'warn ', :yellow, msg)
         end
 
-        def info(msg = "") #:nodoc:
+        def info(msg = ::String.new) #:nodoc:
             log(VERBOSE_INFO, 'info ', :green, msg)
         end
 
-        def debug(msg = "") #:nodoc:
+        def debug(msg = ::String.new) #:nodoc:
             log(VERBOSE_DEBUG, 'debug', :magenta, msg)
         end
 
-        def trace(msg = "") #:nodoc:
+        def trace(msg = ::String.new) #:nodoc:
             log(VERBOSE_TRACE, 'trace', :cyan, msg)
         end
 

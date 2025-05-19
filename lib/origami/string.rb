@@ -110,7 +110,7 @@ module Origami
         attr_accessor :encoding
 
         def initialize(str) #:nodoc:
-            super(str.force_encoding('binary'))
+            super(str.b)
 
             detect_encoding
         end
@@ -170,7 +170,7 @@ module Origami
         # Creates a new PDF hexadecimal String.
         # _str_:: The string value.
         #
-        def initialize(str = "")
+        def initialize(str = ::String.new)
             unless str.is_a?(::String)
                 raise TypeError, "Expected type String, received #{str.class}."
             end
@@ -239,7 +239,7 @@ module Origami
         # Creates a new PDF String.
         # _str_:: The string value.
         #
-        def initialize(str = "")
+        def initialize(str = ::String.new)
             unless str.is_a?(::String)
                 raise TypeError, "Expected type String, received #{str.class}."
             end
@@ -255,7 +255,7 @@ module Origami
                 raise InvalidLiteralStringObjectError, "No literal string start token found"
             end
 
-            result = ""
+            result = ::String.new
             depth = 0
             while depth != 0 or scanner.peek(1) != TOKENS.last do
                 raise InvalidLiteralStringObjectError, "Non-terminated string" if scanner.eos?

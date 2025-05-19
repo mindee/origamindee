@@ -11,25 +11,25 @@ class TestEncryption < Minitest::Test
 
     def test_encrypt_rc4_40b
         return if OpenSSL::VERSION[0].to_i > 2
-        @output.string = ""
+        @output.string = ::String.new
         @target.encrypt(cipher: 'rc4', key_size: 40).save(@output)
     end
 
     def test_encrypt_rc4_128b
         return if OpenSSL::VERSION[0].to_i > 2
-        @output.string = ""
+        @output.string = ::String.new
         @target.encrypt(cipher: 'rc4', key_size: 128).save(@output)
     end
 
     def test_encrypt_aes_128b
         return if OpenSSL::VERSION[0].to_i > 2
-        @output.string = ""
+        @output.string = ::String.new
         @target.encrypt(cipher: 'aes', key_size: 128).save(@output)
     end
 
     def test_decrypt_rc4_40b
         return if OpenSSL::VERSION[0].to_i > 2
-        @output.string = ""
+        @output.string = ::String.new
 
         pdf = PDF.new.encrypt(cipher: 'rc4', key_size: 40)
         pdf.Catalog[:Test] = "test"
@@ -45,7 +45,7 @@ class TestEncryption < Minitest::Test
 
     def test_decrypt_rc4_128b
         return if OpenSSL::VERSION[0].to_i > 2
-        @output.string = ""
+        @output.string = ::String.new
         pdf = PDF.new.encrypt(cipher: 'rc4', key_size: 128)
         pdf.Catalog[:Test] = "test"
         pdf.save(@output)
@@ -60,7 +60,7 @@ class TestEncryption < Minitest::Test
 
     def test_decrypt_aes_128b
         return if OpenSSL::VERSION[0].to_i > 2
-        @output.string = ""
+        @output.string = ::String.new
         pdf = PDF.new.encrypt(cipher: 'aes', key_size: 128)
         pdf.Catalog[:Test] = "test"
         pdf.save(@output)
@@ -74,7 +74,7 @@ class TestEncryption < Minitest::Test
     end
 
     def test_decrypt_aes_256b
-        @output.string = ""
+        @output.string = ::String.new
         pdf = PDF.new.encrypt(cipher: 'aes', key_size: 256)
         pdf.Catalog[:Test] = "test"
         pdf.save(@output)
@@ -88,7 +88,7 @@ class TestEncryption < Minitest::Test
     end
 
     def test_crypt_filter
-        @output.string = ""
+        @output.string = ::String.new
         pdf = PDF.new.encrypt(cipher: 'aes', key_size: 256)
 
         pdf.Catalog[:S1] = Stream.new("test", :Filter => :Crypt)

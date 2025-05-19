@@ -179,7 +179,7 @@ module Origami
         end
 
         def to_s
-            data = ""
+            data = ::String.new
 
             nitems = self.class.nb_header_items
             for no in (1..nitems)
@@ -300,7 +300,7 @@ module Origami
                 raise InvalidHintStreamObjectError, "No shared objects hint table"
             end
 
-            @data = ""
+            @data = ::String.new
             save_table(@page_offset_table)
             save_table(@shared_objects_table,         :S)
             save_table(@thumbnails_table,             :T)

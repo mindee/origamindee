@@ -20,7 +20,7 @@ OUTPUT_FILE = "#{File.basename(__FILE__, ".rb")}.pdf"
 # XDP Packet holding the Form.
 #
 class SampleXDP < XDP::Package
-    def initialize(script = "")
+    def initialize(script = ::String.new)
         super()
 
         self.root.add_element(create_config_packet)

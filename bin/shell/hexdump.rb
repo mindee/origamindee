@@ -23,14 +23,14 @@ require 'colorize'
 class String #:nodoc:
 
     def hexdump(bytesperline: 16, upcase: true, offsets: true, delta: 0)
-        dump = ""
+        dump = ::String.new
         counter = 0
     
         while counter < self.length
             offset = sprintf("%010X", counter + delta)
       
             linelen = [ self.length - counter, bytesperline ].min
-            bytes = ""
+            bytes = ::String.new
             linelen.times do |i|
                 byte = self[counter + i].ord.to_s(16).rjust(2, '0')
 
