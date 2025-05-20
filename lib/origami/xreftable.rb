@@ -341,7 +341,7 @@ module Origami
     end
 
     #
-    # An xref poiting to an Object embedded in an ObjectStream.
+    # An xref pointing to an Object embedded in an ObjectStream.
     #
     class XRefToCompressedObject
         attr_accessor :objstmno, :index
