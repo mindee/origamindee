@@ -1,3 +1,9 @@
+4.0.2
+-----
+* Fix improper parsing of nametree leaves
+* Fix string frozen literal warnings for ruby >= 3.4
+
+
 4.0.1
 -----
 * Update dependencies & loosen version constraints
