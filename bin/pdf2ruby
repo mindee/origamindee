@@ -90,7 +90,7 @@ TARGET_FILE = File.join(TARGET_DIR, "#{TARGET_DIR}.rb")
 STREAM_DIR = "streams"
 
 def objectToRuby(obj, inclevel = 0, internalname = nil, do_convert = false)
-    code = ""
+    code = ::String.new
 
     code <<
         case obj

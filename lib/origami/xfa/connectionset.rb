@@ -59,7 +59,7 @@ module Origami
                     xfa_attribute 'input'
                     xfa_attribute 'output'
 
-                    def initialize(name = "")
+                    def initialize(name = ::String.new)
                         super('operation')
 
                         self.text = name
@@ -67,7 +67,7 @@ module Origami
                 end
 
                 class SOAPAction < XFA::NamedTemplateElement
-                    def initialize(uri = "")
+                    def initialize(uri = ::String.new)
                         super('soapAction')
 
                         self.text = uri
@@ -75,7 +75,7 @@ module Origami
                 end
 
                 class SOAPAddress < XFA::NamedTemplateElement
-                    def initialize(addr = "")
+                    def initialize(addr = ::String.new)
                         super('soapAddress')
 
                         self.text = addr
@@ -83,7 +83,7 @@ module Origami
                 end
 
                 class WSDLAddress < XFA::NamedTemplateElement
-                    def initialize(addr = "")
+                    def initialize(addr = ::String.new)
                         super('wsdlAddress')
 
                         self.text = addr
@@ -104,7 +104,7 @@ module Origami
                 end
 
                 class URI < XFA::NamedTemplateElement
-                    def initialize(uri = "")
+                    def initialize(uri = ::String.new)
                         super('uri')
 
                         self.text = uri

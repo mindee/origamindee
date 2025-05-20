@@ -335,13 +335,13 @@ module Origami
             # Outputs self into PDF code.
             #
             def to_s(eol: $/)
-                "xref" << eol << @subsections.map{|sub| sub.to_s(eol: eol)}.join
+                "xref".dup << eol << @subsections.map{|sub| sub.to_s(eol: eol)}.join
             end
         end
     end
 
     #
-    # An xref poiting to an Object embedded in an ObjectStream.
+    # An xref pointing to an Object embedded in an ObjectStream.
     #
     class XRefToCompressedObject
         attr_accessor :objstmno, :index
@@ -397,7 +397,7 @@ module Origami
         field   :Info,          :Type => Metadata
         field   :ID,            :Type => Array.of(String, length: 2)
 
-        def initialize(data = "", dictionary = {})
+        def initialize(data = ::String.new, dictionary = {})
             super(data, dictionary)
 
             @xrefs = nil
@@ -532,7 +532,7 @@ module Origami
         end
 
         def save! #:nodoc:
-            self.data = ""
+            self.data = ::String.new
 
             type_w, field1_w, field2_w = self.W
             @xrefs.each do |xref| @data << xref.to_xrefstm_data(type_w, field1_w, field2_w) end

@@ -41,7 +41,7 @@ module Origami
         # Creates a new Name.
         # _name_:: A symbol representing the new Name value.
         #
-        def initialize(name = "")
+        def initialize(name = ::String.new)
             unless name.is_a?(Symbol) or name.is_a?(::String)
                 raise TypeError, "Expected type Symbol or String, received #{name.class}."
             end

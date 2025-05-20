@@ -80,7 +80,7 @@ module Origami
             # _stream_:: The data to decode.
             #
             def decode(string)
-                result = "".b
+                result = ::String.new.b
                 bstring = Utils::BitReader.new(string)
                 table, codesize = reset_state
                 prevbyte = nil

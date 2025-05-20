@@ -143,7 +143,7 @@ module Origami
             # Each line should be prepended by a byte identifying a PNG predictor.
             #
             def png_post_prediction(data, bpp, bpr)
-                result = ""
+                result = ::String.new
                 uprow = "\0" * bpr
                 thisrow = "\0" * bpr
                 nrows = (data.size + bpr - 1) / bpr
@@ -185,7 +185,7 @@ module Origami
             # Encodes the input data given a PNG predictor.
             #
             def png_pre_prediction(data, predictor, bpp, bpr)
-                result = ""
+                result = ::String.new
                 nrows = data.size / bpr
 
                 line = "\0" + data[-bpr, bpr]

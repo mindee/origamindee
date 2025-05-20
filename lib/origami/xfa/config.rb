@@ -44,7 +44,7 @@ module Origami
                 end
 
                 class URI < XFA::ConfigElement
-                    def initialize(uri = "")
+                    def initialize(uri = ::String.new)
                         super('uri')
 
                         self.text = uri
@@ -91,7 +91,7 @@ module Origami
                 end
 
                 class Locale < XFA::ConfigElement
-                    def initialize(locale = "")
+                    def initialize(locale = ::String.new)
                         super('locale')
 
                         self.text = locale
@@ -99,7 +99,7 @@ module Origami
                 end
 
                 class LocaleSet < XFA::ConfigElement
-                    def initialize(uri = "")
+                    def initialize(uri = ::String.new)
                         super('localeSet')
 
                         self.text = uri
@@ -115,7 +115,7 @@ module Origami
                 end
 
                 class Range < XFA::ConfigElement
-                    def initialize(range = "")
+                    def initialize(range = ::String.new)
                         super('range')
 
                         self.text = range
@@ -123,7 +123,7 @@ module Origami
                 end
 
                 class Record < XFA::ConfigElement
-                    def initialize(record = "")
+                    def initialize(record = ::String.new)
                         super('record')
 
                         self.text = record
@@ -131,7 +131,7 @@ module Origami
                 end
 
                 class StartNode < XFA::ConfigElement
-                    def initialize(somexpr = "")
+                    def initialize(somexpr = ::String.new)
                         super('startNode')
 
                         self.text = somexpr
@@ -156,7 +156,7 @@ module Origami
                 end
 
                 class ExcludeNS < XFA::ConfigElement
-                    def initialize(ns = "")
+                    def initialize(ns = ::String.new)
                         super('excludeNS')
 
                         self.text = ns
@@ -164,7 +164,7 @@ module Origami
                 end
 
                 class GroupParent < XFA::ConfigElement
-                    def initialize(parentname = "")
+                    def initialize(parentname = ::String.new)
                         super('groupParent')
 
                         self.text = parentname
@@ -193,7 +193,7 @@ module Origami
                 end
 
                 class Picture < XFA::ConfigElement
-                    def initialize(clause = "")
+                    def initialize(clause = ::String.new)
                         super('picture')
 
                         self.text = clause
@@ -215,7 +215,7 @@ module Origami
                 end
 
                 class Rename < XFA::ConfigElement
-                    def initialize(nodename = "")
+                    def initialize(nodename = ::String.new)
                         super('rename')
 
                         self.text = nodename
@@ -319,7 +319,7 @@ module Origami
                 end
 
                 class Base < XFA::ConfigElement
-                    def initialize(uri = "")
+                    def initialize(uri = ::String.new)
                         super('base')
 
                         self.text = uri
@@ -327,7 +327,7 @@ module Origami
                 end
 
                 class Relevant < XFA::ConfigElement
-                    def initialize(token = "")
+                    def initialize(token = ::String.new)
                         super('relevant')
 
                         self.text = token

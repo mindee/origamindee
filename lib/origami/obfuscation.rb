@@ -218,7 +218,7 @@ module Origami
 
     class Stream
         def to_obfuscated_str
-            content = ""
+            content = ::String.new
 
             content << @dictionary.to_obfuscated_str
             content << "stream" + $/
@@ -231,7 +231,7 @@ module Origami
 
     class Trailer
         def to_obfuscated_str
-            content = ""
+            content = ::String.new
             if self.dictionary?
                 content << TOKENS.first << $/ << @dictionary.to_obfuscated_str << $/
             end

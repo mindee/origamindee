@@ -38,7 +38,7 @@ module Origami
             # _stream_:: The data to encode.
             #
             def encode(stream)
-                result = "".b
+                result = ::String.new.b
                 i = 0
 
                 while i < stream.size
@@ -70,7 +70,7 @@ module Origami
             # _stream_:: The data to decode.
             #
             def decode(stream)
-                result = "".b
+                result = ::String.new.b
 
                 i = 0
                 until i >= stream.length or stream[i].ord == EOD do

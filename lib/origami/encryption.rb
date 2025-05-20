@@ -47,7 +47,7 @@ module Origami
         # Decrypts the current document.
         # _passwd_:: The password to decrypt the document.
         #
-        def decrypt(passwd = "")
+        def decrypt(passwd = ::String.new)
             raise EncryptionError, "PDF is not encrypted" unless self.encrypted?
 
             # Turn the encryption dictionary into a standard encryption dictionary.

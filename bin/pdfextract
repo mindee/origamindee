@@ -171,7 +171,7 @@ begin
 
             case xfa
             when Array then
-                xml = ""
+                xml = ::String.new
                 i = 0
                 xfa.each do |packet|
                     if i % 2 == 1
